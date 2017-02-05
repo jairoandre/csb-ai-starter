@@ -23,7 +23,7 @@ If you want to get further in the ranking, you'll need to start adding improveme
 
 # Additional resources
 
-* [Magus post-mortem](http://files.magusgeek.com/csb/csb_en.html)
+* [Magus post-mortem](http://files.magusgeek.com/csb/csb_en.html) (bulk of API and collision code is based on this)
 * [pb4 post-mortem](https://www.codingame.com/blog/coders-strike-back-pb4608s-ai-rank-3rd/)
 * [Jeff06 post-mortem](https://www.codingame.com/blog/genetic-algorithms-coders-strike-back-game/)
 * [sethorizer's sim engine tester](https://github.com/sethorizer/csb)
