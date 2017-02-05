@@ -32,7 +32,7 @@ constexpr int CP  = 0;
 constexpr int POD = 1;
 constexpr int DEPTH = 6;
 constexpr float SHIELD_PROB = 10;
-constexpr int MAX_THRUST = 200;
+constexpr int MAX_THRUST = 100;
 
 int r = -1;
 int turn = 0;

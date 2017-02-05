@@ -4,11 +4,12 @@ Aim of this project is to serve as a starter code for search based AI solutions 
 
 It provides a fully working and tested simulation engine, simple mutation-based search algorithm, basic reflex AI and generic API with which the user can extend the bot. It is written with performance in mind and can achieve an average of 200k-250k simulations per turn.
 
-Without any modifications this bot is ranked at 30 out of 19000. With a GA-based search it can get to top 10. A heavily modified version of it currently holds rank 4.
+Without any modifications this bot is ranked at 20 out of 19000. A heavily modified version of it currently holds rank 4.
 
 # Usage
 
-Assuming you are in Legend league, all you need to do is copy/paste and hit submit. If you are in Gold league, you'll need to change `MAX_THRUST` const to `100`. Code assumes input format provided in Gold league and above and will not work for lower leagues.
+Code assumes input format provided in Gold or Legend league and will not work for lower leagues.
+If you are in Gold or Legend league, all you need to do is copy/paste and hit submit. 
 
 # Next steps
 
