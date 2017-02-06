@@ -2,7 +2,7 @@
 
 Aim of this project is to serve as a starter code for search based AI solutions to the [Coders Strike Back](https://www.codingame.com/multiplayer/bot-programming/coders-strike-back) bot programming challenge. 
 
-It provides a fully working and tested simulation engine, simple mutation-based search algorithm, basic reflex AI and generic API with which the user can extend the bot. It is written with performance in mind and can achieve an average of 200k-250k simulations per turn.
+It provides a fully working and tested simulation engine, simple mutation-based search algorithm, basic reflex AI and generic API with which the user can extend the bot. It is written with performance in mind and can achieve an average of 250k-300k simulations per turn.
 
 Without any modifications this bot is ranked at 20 out of 19000. A heavily modified version of it currently holds rank 4.
 

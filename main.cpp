@@ -34,6 +34,8 @@ constexpr int DEPTH = 6;
 constexpr float SHIELD_PROB = 10;
 constexpr int MAX_THRUST = 100;
 
+constexpr float E = 0.00001;
+
 int r = -1;
 int turn = 0;
 int sols_ct = 0;
@@ -129,37 +131,26 @@ public:
             return -1;
         }
 
-        float dx = x - u->x;
-        float dy = y - u->y;
-        Point myp = Point(dx, dy);
-        float dvx = vx - u->vx;
-        float dvy = vy - u->vy;
-        Point up = Point(0, 0);
-        Point pt = Point(dx + dvx, dy + dvy);
-        Point p = up.closest(&myp, &pt);
-
-        float pdst = up.dist2(&p);
-        float mypdst = myp.dist2(&p);
-
-        // 357604 = 598*598
         float sr2 = u->type == CP ? 357604 : 640000;
 
-        if (pdst >= sr2) {
-            return -1;
-        }
+        float dx = x - u->x;
+        float dy = y - u->y;
+        float dvx = vx - u->vx;
+        float dvy = vy - u->vy;
+        float a = dvx*dvx + dvy*dvy;
 
-        float length = sqrt(dvx*dvx + dvy*dvy);
-        float bdst = sqrt(sr2 - pdst);
-        p.x -= bdst * dvx / length;
-        p.y -= bdst * dvy / length;
+        if (a < E) return -1;
 
-        if (myp.dist2(&p) > mypdst) return -1;
+        float b = -2.0*(dx*dvx + dy*dvy);
+        float delta = b*b - 4.0*a*(dx*dx + dy*dy - sr2);
 
-        pdst = p.dist(&myp);
+        if (delta < 0.0) return -1;
 
-        if (pdst > length) return -1;
+        float t = (b - sqrt(delta))*(1.0/(2.0*a));
 
-        return pdst / length;
+        if (t <= 0.0 || t > 1.0) return -1;
+
+        return t;
     }
 
     void save() {
@@ -292,31 +283,31 @@ public:
 
         float nx = x - u->x;
         float ny = y - u->y;
-
         float dst2 = nx*nx + ny*ny;
-
         float dvx = vx - u->vx;
         float dvy = vy - u->vy;
+        float prod = (nx*dvx + ny*dvy) / (dst2 * mcoeff);
+        float fx = nx * prod;
+        float fy = ny * prod;
+        float m1_inv = 1.0 / m1;
+        float m2_inv = 1.0 / m2;
 
-        float prod = nx*dvx + ny*dvy;
-        float fx = (nx*prod) / (dst2*mcoeff);
-        float fy = (ny*prod) / (dst2*mcoeff);
-
-        vx -= fx / m1;
-        vy -= fy / m1;
-        u->vx += fx / m2;
-        u->vy += fy / m2;
+        vx -= fx * m1_inv;
+        vy -= fy * m1_inv;
+        u->vx += fx * m2_inv;
+        u->vy += fy * m2_inv;
 
         float impulse = sqrt(fx*fx + fy*fy);
         if (impulse < 120.) {
-            fx *= 120.0/impulse;
-            fy *= 120.0/impulse;
+            float df = 120.0 / impulse;
+            fx *= df;
+            fy *= df;
         }
 
-        vx -= fx / m1;
-        vy -= fy / m1;
-        u->vx += fx / m2;
-        u->vy += fy / m2;
+        vx -= fx * m1_inv;
+        vy -= fy * m1_inv;
+        u->vx += fx * m2_inv;
+        u->vy += fy * m2_inv;
     }
 
     inline float diff_angle(Point* p) {
