@@ -710,12 +710,12 @@ int main() {
 
         now = high_resolution_clock::now();
 
-        float time_limit = r ? 0.145 : 0.98;
+        float time_limit = r ? 0.142 : 0.98;
 
         // use this to test reflex bot behavior
         // me_reflex.move_as_main();
 
-        opp.solve(time_limit*0.30);
+        opp.solve(time_limit*0.15);
         me.solve(time_limit, r > 0);
 
         if (r > 0) cerr << "Avg iters: " << sols_ct / r << "; Avg sims: " << sols_ct*DEPTH / r << endl;
